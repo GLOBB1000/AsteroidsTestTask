@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public interface IWeapon
+namespace Core
 {
-    public abstract string Id { get; set; }
+    public interface IWeapon
+    {
+        public abstract string Id { get; set; }
+    }
 }

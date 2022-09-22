@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ITeleportable
+namespace Core
 {
-    public bool IsTeleportedJustNow { get; set; }
-    public bool IsObjectInBounds { get; set; } 
+    public interface ITeleportable
+    {
+        public bool IsTeleportedJustNow { get; set; }
+        public bool IsObjectInBounds { get; set; }
+    }
 }

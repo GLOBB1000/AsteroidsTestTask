@@ -1,62 +1,67 @@
+using Core;
+using Settings;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Enemy : MonoBehaviour, IEnemy, IDestroyable
+namespace Enemies
 {
-    [SerializeField]
-    private GameSettings settings;
-
-    [SerializeField]
-    private string id;
-
-    public GameSettings.Enemy enemySettings { get; protected set; }
-
-    protected float health;
-
-    public bool isSpawnedRecentrly { get; set; }
-
-    public GameSettings Settings { get; set; }
-    public string Id { get; set; }
-
-    protected float destroyTimer;
-
-    protected Vector3 trajectory;
-
-    public static event Action<float> OnEnemyDead;
-
-    public virtual void Initialize()
+    public abstract class Enemy : MonoBehaviour, IEnemy, IDestroyable
     {
-        enemySettings = settings.Enemies.Find(x => x.Id.Equals(id));
+        [SerializeField]
+        private GameSettings settings;
 
-        health = enemySettings.Health;
-        Debug.Log(enemySettings.Id);
+        [SerializeField]
+        private string id;
 
-        isSpawnedRecentrly = true;
-        
-    }
+        public GameSettings.Enemy enemySettings { get; protected set; }
 
-    public void SetTrajectory(Vector2 direction)
-    {
-        trajectory = direction;
-    }
+        protected float health;
 
-    protected virtual void OnDead()
-    {
-        OnEnemyDead?.Invoke(enemySettings.Points);
-    }
+        public bool isSpawnedRecentrly { get; set; }
 
-    public abstract void Update();
+        public GameSettings Settings { get; set; }
+        public string Id { get; set; }
 
-    public virtual void OnCollisionEnter2D(Collision2D collision)
-    {
-        var col = collision.collider;
-        var projectile = col.GetComponent<Projectile>();
+        protected float destroyTimer;
 
-        if (projectile == null)
-            return;
+        protected Vector3 trajectory;
 
-        OnDead();
+        public static event Action<float> OnEnemyDead;
+
+        public virtual void Initialize()
+        {
+            enemySettings = settings.Enemies.Find(x => x.Id.Equals(id));
+
+            health = enemySettings.Health;
+            Debug.Log(enemySettings.Id);
+
+            isSpawnedRecentrly = true;
+
+        }
+
+        public void SetTrajectory(Vector2 direction)
+        {
+            trajectory = direction;
+        }
+
+        protected virtual void OnDead()
+        {
+            OnEnemyDead?.Invoke(enemySettings.Points);
+        }
+
+        public abstract void Update();
+
+        public virtual void OnCollisionEnter2D(Collision2D collision)
+        {
+            var col = collision.collider;
+            var projectile = col.GetComponent<Projectile>();
+
+            if (projectile == null)
+                return;
+
+            OnDead();
+        }
     }
 }

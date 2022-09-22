@@ -1,9 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Settings;
 
-public interface IEnemy
+namespace Core
 {
-    public GameSettings Settings { get; set; }
-    public string Id { get; set; }
+    public interface IEnemy
+    {
+        public GameSettings Settings { get; set; }
+        public string Id { get; set; }
+    }
 }
+

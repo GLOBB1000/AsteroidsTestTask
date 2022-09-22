@@ -4,10 +4,14 @@ using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneManagerUtility : MonoBehaviour
+namespace Utility
 {
-    public void SetScene(int index)
+    public class SceneManagerUtility : MonoBehaviour
     {
-        SceneManager.LoadScene(index);
+        public void SetScene(int index)
+        {
+            SceneManager.LoadScene(index);
+        }
     }
+
 }

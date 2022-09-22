@@ -1,40 +1,43 @@
-using System.Collections;
-using System.Collections.Generic;
+using Core;
+using Enemies;
 using UnityEngine;
 
-public class Bullet : Projectile, IDestroyable
+namespace Weapons
 {
-    [SerializeField]
-    private float speed;
-
-    private float lifeTime = 5;
-
-    private float lifeTimer;
-
-    // Update is called once per frame
-    void Update()
+    public class Bullet : Projectile, IDestroyable
     {
-        transform.position += Direction * speed * Time.deltaTime;
+        [SerializeField]
+        private float speed;
 
-        if (gameObject.activeInHierarchy)
+        private float lifeTime = 5;
+
+        private float lifeTimer;
+
+        // Update is called once per frame
+        void Update()
         {
-            lifeTimer -= Time.deltaTime;
+            transform.position += Direction * speed * Time.deltaTime;
 
-            if(lifeTimer <= 0)
+            if (gameObject.activeInHierarchy)
             {
-                gameObject.SetActive(false);
-                lifeTimer = lifeTime;
+                lifeTimer -= Time.deltaTime;
+
+                if (lifeTimer <= 0)
+                {
+                    gameObject.SetActive(false);
+                    lifeTimer = lifeTime;
+                }
             }
         }
-    }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        var enemy = collision.collider.GetComponent<Enemy>();
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            var enemy = collision.collider.GetComponent<Enemy>();
 
-        if (enemy == null)
-            return;
+            if (enemy == null)
+                return;
 
-        gameObject.SetActive(false);
+            gameObject.SetActive(false);
+        }
     }
 }

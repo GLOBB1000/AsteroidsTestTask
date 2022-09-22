@@ -2,35 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Data", menuName = "GameSettings", order = 1)]
-public class GameSettings : ScriptableObject
+namespace Settings
 {
-    [SerializeField]
-    private PlayerMovementSetting playerMovement;
-    public PlayerMovementSetting PlayerMovement => playerMovement;
-
-    [SerializeField]
-    private List<Enemy> enemies;
-
-    public List<Enemy> Enemies => enemies;
-
-    [System.Serializable]
-    public struct PlayerMovementSetting
+    [CreateAssetMenu(fileName = "Data", menuName = "GameSettings", order = 1)]
+    public class GameSettings : ScriptableObject
     {
-        public float MaxInertion;
-        public float RotationSpeed;
-        public float InertionRaiseValue;
-    }
+        [SerializeField]
+        private PlayerMovementSetting playerMovement;
+        public PlayerMovementSetting PlayerMovement => playerMovement;
 
-    [System.Serializable]
-    public struct Enemy
-    {
-        //Имя или же идентификатор врага
-        public string Id;
+        [SerializeField]
+        private List<Enemy> enemies;
 
-        public float Health;
-        public float Points;
+        public List<Enemy> Enemies => enemies;
 
-        public float Speed;
+        [System.Serializable]
+        public struct PlayerMovementSetting
+        {
+            public float MaxInertion;
+            public float RotationSpeed;
+            public float InertionRaiseValue;
+        }
+
+        [System.Serializable]
+        public struct Enemy
+        {
+            //Имя или же идентификатор врага
+            public string Id;
+
+            public float Health;
+            public float Points;
+
+            public float Speed;
+        }
     }
 }

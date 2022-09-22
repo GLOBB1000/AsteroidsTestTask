@@ -1,37 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
+using Core;
 using UnityEngine;
 
-public abstract class Weapon : MonoBehaviour, IWeapon
+namespace Weapons
 {
-    [SerializeField]
-    private WeaponsSettigns weaponsSettigns;
-
-    [SerializeField]
-    private string id;
-
-    protected float cooldown;
-
-    public WeaponsSettigns.WeaponSetting currentWeapon;
-
-    public string Id { get => id; set => Id = value; }
-
-    protected abstract void Shoot();
-
-    protected void Initialize()
+    public abstract class Weapon : MonoBehaviour, IWeapon
     {
-        currentWeapon = weaponsSettigns.WeaponSettings.Find(x => x.Id == Id);
-    }
+        [SerializeField]
+        private WeaponsSettigns weaponsSettigns;
 
-    // Start is called before the first frame update
-    protected virtual void Start()
-    {
-        Initialize();
-    }
+        [SerializeField]
+        private string id;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        protected float cooldown;
+
+        public WeaponsSettigns.WeaponSetting currentWeapon;
+
+        public string Id { get => id; set => Id = value; }
+
+        protected abstract void Shoot();
+
+        protected void Initialize()
+        {
+            currentWeapon = weaponsSettigns.WeaponSettings.Find(x => x.Id == Id);
+        }
+
+        // Start is called before the first frame update
+        protected virtual void Start()
+        {
+            Initialize();
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
     }
 }

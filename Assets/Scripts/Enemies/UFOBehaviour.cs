@@ -1,25 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
+using Core;
+using Player;
 using UnityEngine;
 
-public class UFOBehaviour : Enemy, IDestroyable
+namespace Enemies
 {
-    private PlayerBehaviour playerBehaviour;
-
-    private void Start()
+    public class UFOBehaviour : Enemy, IDestroyable
     {
-        Initialize();
-        playerBehaviour = FindObjectOfType<PlayerBehaviour>();
-    }
+        private PlayerBehaviour playerBehaviour;
 
-    public override void Update()
-    {
-        transform.position = Vector3.MoveTowards(transform.position, playerBehaviour.transform.position, enemySettings.Speed * Time.deltaTime);
-    }
+        private void Start()
+        {
+            Initialize();
+            playerBehaviour = FindObjectOfType<PlayerBehaviour>();
+        }
 
-    protected override void OnDead()
-    {
-        base.OnDead();
-        Destroy(gameObject);
+        public override void Update()
+        {
+            transform.position = Vector3.MoveTowards(transform.position, playerBehaviour.transform.position, enemySettings.Speed * Time.deltaTime);
+        }
+
+        protected override void OnDead()
+        {
+            base.OnDead();
+            Destroy(gameObject);
+        }
     }
 }
+

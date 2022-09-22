@@ -2,70 +2,74 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LaserGun : Weapon
+namespace Weapons
 {
-    private const float timeToReloadLaser = 10;
-
-    private float reloadTimer;
-
-    [SerializeField]
-    private Laser laser;
-
-    private float Duration;
-
-    public float FireRate { get; private set; }
-
-    public int CountOfFire { get; private set; }
-
-    private bool isLaserActive;
-
-    protected override void Start()
+    public class LaserGun : Weapon
     {
-        base.Start();
-        Duration = currentWeapon.Duration;
-        FireRate = 0;
-        CountOfFire = currentWeapon.CountOfFire;
-    }
-    protected override void Shoot()
-    {
-        laser.gameObject.SetActive(true);
-        isLaserActive = true;
-        FireRate = currentWeapon.FireRate;
-        CountOfFire--;
-    }
+        private const float timeToReloadLaser = 10;
 
-    private void Reload()
-    {
-        CountOfFire++;
-        reloadTimer = timeToReloadLaser;
-    }
+        private float reloadTimer;
 
-    private void Update()
-    {
-        FireRate -= Time.deltaTime;
-        reloadTimer -= Time.deltaTime;
+        [SerializeField]
+        private Laser laser;
 
-        if(reloadTimer < 0)
+        private float Duration;
+
+        public float FireRate { get; private set; }
+
+        public int CountOfFire { get; private set; }
+
+        private bool isLaserActive;
+
+        protected override void Start()
         {
-            Reload();
+            base.Start();
+            Duration = currentWeapon.Duration;
+            FireRate = 0;
+            CountOfFire = currentWeapon.CountOfFire;
+        }
+        protected override void Shoot()
+        {
+            laser.gameObject.SetActive(true);
+            isLaserActive = true;
+            FireRate = currentWeapon.FireRate;
+            CountOfFire--;
         }
 
-        if (Input.GetMouseButtonDown(0) && FireRate <= 0 && CountOfFire > 0)
+        private void Reload()
         {
-            Shoot();
+            CountOfFire++;
+            reloadTimer = timeToReloadLaser;
         }
 
-        if (isLaserActive)
+        private void Update()
         {
-            Duration -= Time.deltaTime;
+            FireRate -= Time.deltaTime;
+            reloadTimer -= Time.deltaTime;
 
-            if(Duration <= 0)
+            if (reloadTimer < 0)
             {
-                isLaserActive = false;
-                laser.gameObject.SetActive(false);
-                Duration = currentWeapon.Duration;
+                Reload();
+            }
+
+            if (Input.GetMouseButtonDown(0) && FireRate <= 0 && CountOfFire > 0)
+            {
+                Shoot();
+            }
+
+            if (isLaserActive)
+            {
+                Duration -= Time.deltaTime;
+
+                if (Duration <= 0)
+                {
+                    isLaserActive = false;
+                    laser.gameObject.SetActive(false);
+                    Duration = currentWeapon.Duration;
+                }
             }
         }
-    }
 
+    }
 }
+
