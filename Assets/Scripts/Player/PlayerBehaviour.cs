@@ -1,16 +1,28 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBehaviour : MonoBehaviour, IPlayer
+public class PlayerBehaviour : MonoBehaviour
 {
-    public Vector2 Coordinates { get => transform.position; set => transform.position = value; }
+    public static event Action OnDead;
 
-    [SerializeField]
-    private List<Weapon> weapons;
 
-    private void Update()
+    private void OnPlayerDead()
     {
-        
+        Debug.Log("Dead");
+        gameObject.SetActive(false);
+
+        OnDead?.Invoke();
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        var coll = collision.collider.GetComponent<Enemy>();
+
+        if(coll != null)
+        {
+            OnPlayerDead();
+        }
     }
 }

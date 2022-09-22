@@ -2,9 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
-public class ScreenBordersTeleportation : MonoBehaviour
+public class ScreenBordersBehaviour : MonoBehaviour
 {
     private Vector2 borders;
     private Vector2 screenCenter;
@@ -47,25 +46,12 @@ public class ScreenBordersTeleportation : MonoBehaviour
                     StartCoroutine(TeleportationReset(lastTeleportableObject));
                 }
 
-                if(destroyable != null)
-                {
-                    var proj = (Projectile)destroyable;
-                    
-
-                    if (proj != null)
-                    {
-                        proj.gameObject.SetActive(false);
-                    }
-
-                    else
-                    {
-                        DestroyObject(destroyable);
-                    }
-                }
+                if (destroyable != null)
+                    DestroyObject(destroyable);
 
                 else
                 {
-                    if(lastTeleportableObject != null)
+                    if (lastTeleportableObject != null)
                     {
                         lastTeleportableObject.IsObjectInBounds = false;
                         StopCoroutine(TeleportationReset(lastTeleportableObject));
@@ -108,11 +94,24 @@ public class ScreenBordersTeleportation : MonoBehaviour
 
     private void DestroyObject(IDestroyable destroyable)
     {
-        var gameObj = destroyable switch
+        switch (destroyable)
         {
-            _ => (Enemy)destroyable
-        };
-
-        Destroy(gameObj.gameObject);
+            case Projectile projectile:
+                projectile.gameObject.SetActive(false);
+                break;
+            case Enemy enemy:
+                if(!enemy.isSpawnedRecentrly)
+                    Destroy(enemy.gameObject);
+                break;
+        }
     }
+
+    private void OnDrawGizmos()
+    {
+        foreach (var border in bordersCoordinates)
+        {
+            Gizmos.DrawWireCube(border, new Vector2(Mathf.Abs(border.y * 4), Mathf.Abs(border.x * 1.2f)));
+        }
+    }
+
 }

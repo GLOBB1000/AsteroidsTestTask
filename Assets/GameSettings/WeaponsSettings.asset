@@ -16,3 +16,10 @@ MonoBehaviour:
   - Id: BulletGun
     Damage: 10
     FireRate: 0.1
+    Duration: 0
+    CountOfFire: 0
+  - Id: LaserGun
+    Damage: 10
+    FireRate: 5
+    Duration: 3
+    CountOfFire: 3

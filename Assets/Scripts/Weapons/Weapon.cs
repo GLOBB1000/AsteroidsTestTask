@@ -8,14 +8,11 @@ public abstract class Weapon : MonoBehaviour, IWeapon
     private WeaponsSettigns weaponsSettigns;
 
     [SerializeField]
-    protected ObjectsPool objectsPool;
-
-    [SerializeField]
     private string id;
 
     protected float cooldown;
 
-    protected WeaponsSettigns.WeaponSetting currentWeapon;
+    public WeaponsSettigns.WeaponSetting currentWeapon;
 
     public string Id { get => id; set => Id = value; }
 

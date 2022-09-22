@@ -16,5 +16,9 @@ public class WeaponsSettigns : ScriptableObject
         public string Id;
         public float Damage;
         public float FireRate;
+
+        public float Duration;
+
+        public int CountOfFire;
     }
 }

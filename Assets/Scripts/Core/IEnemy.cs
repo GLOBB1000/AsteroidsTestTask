@@ -6,6 +6,4 @@ public interface IEnemy
 {
     public GameSettings Settings { get; set; }
     public string Id { get; set; }
-
-    public abstract void GetDamage(float damage);
 }

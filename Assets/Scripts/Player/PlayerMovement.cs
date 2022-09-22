@@ -3,13 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour, ITeleportable
+public class PlayerMovement : MonoBehaviour, ITeleportable, IPlayer
 {
+    public Vector2 Coordinates => transform.position;
+    public float Angle => transform.eulerAngles.z;
+
+    public float CurrentSpeed => currentSpeed * 100;
+
     public bool IsTeleportedJustNow { get ; set; }
     public bool IsObjectInBounds { get; set; }
 
     [SerializeField]
     private GameSettings gameSettings;
+
+    private float currentSpeed; 
 
 
     private float inertion = 0;
@@ -36,26 +43,28 @@ public class PlayerMovement : MonoBehaviour, ITeleportable
     {
         var changedInertion = InertionChanges();
 
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.W))
         {
             isMoving = true;
         }
 
-        if (Input.GetKeyUp(KeyCode.UpArrow))
+        if (Input.GetKeyUp(KeyCode.W))
         {
             isMoving = false;
         }
 
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.A))
         {
             transform.Rotate(Vector3.forward, gameSettings.PlayerMovement.RotationSpeed * Time.deltaTime);
         }
 
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.D))
         {
             transform.Rotate(-Vector3.forward, gameSettings.PlayerMovement.RotationSpeed * Time.deltaTime);
         }
 
-        transform.position += transform.right * changedInertion * Time.deltaTime;
+        currentSpeed = changedInertion * Time.deltaTime;
+
+        transform.position += transform.right * currentSpeed;
     }
 }

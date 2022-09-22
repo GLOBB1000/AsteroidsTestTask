@@ -18,14 +18,14 @@ MonoBehaviour:
     InertionRaiseValue: 0.1
   enemies:
   - Id: Meteor
-    Health: 100
-    AttackSpeed: 0
-    Speed: 0.1
+    Health: 20
+    Points: 10
+    Speed: 2
   - Id: UFO
     Health: 200
-    AttackSpeed: 0
-    Speed: 0
+    Points: 20
+    Speed: 2
   - Id: LittleMeteor
-    Health: 50
-    AttackSpeed: 0
-    Speed: 0.2
+    Health: 10
+    Points: 5
+    Speed: 0.5

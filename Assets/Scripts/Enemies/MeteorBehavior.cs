@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class MeteorBehavior : Enemy
 {
@@ -12,16 +14,23 @@ public class MeteorBehavior : Enemy
 
     private void Start()
     {
+        Initialize();
+
         var randomX = Random.Range(-10, 10);
         var randomY = Random.Range(-10, 10);
-
         randomDirection = new Vector3(randomX, randomY);
-        Initialize();
+
+        destroyTimer = 2;
     }
 
     public override void Update()
     {
-        transform.position += randomDirection * enemySettings.Speed * Time.deltaTime;
+        transform.position += trajectory * enemySettings.Speed * Time.deltaTime;
+
+        destroyTimer -= Time.deltaTime;
+
+        if (destroyTimer <= 0)
+            isSpawnedRecentrly = false;
     }
 
     public override void OnCollisionEnter2D(Collision2D collision)
@@ -31,6 +40,7 @@ public class MeteorBehavior : Enemy
 
     protected override void OnDead()
     {
+        base.OnDead();
         gameObject.SetActive(false);
         for(int i = 0; i < 2; i++)
         {

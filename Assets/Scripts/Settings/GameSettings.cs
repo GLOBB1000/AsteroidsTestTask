@@ -15,12 +15,6 @@ public class GameSettings : ScriptableObject
     public List<Enemy> Enemies => enemies;
 
     [System.Serializable]
-    public struct PlayerStats
-    {
-        public float Health;
-    }
-
-    [System.Serializable]
     public struct PlayerMovementSetting
     {
         public float MaxInertion;
@@ -35,7 +29,7 @@ public class GameSettings : ScriptableObject
         public string Id;
 
         public float Health;
-        public float AttackSpeed;
+        public float Points;
 
         public float Speed;
     }

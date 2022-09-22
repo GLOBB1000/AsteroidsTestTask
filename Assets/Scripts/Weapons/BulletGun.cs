@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class BulletGun : Weapon
 {
+
+    [SerializeField]
+    private ObjectsPool objectsPool;
+
     protected override void Start()
     {
         base.Start();
@@ -18,6 +22,7 @@ public class BulletGun : Weapon
         var component = projectile.GetComponent<Projectile>();
 
         component.Direction = transform.right;
+        component.transform.rotation = transform.rotation;
         component.Damage = currentWeapon.Damage;
     }
 
